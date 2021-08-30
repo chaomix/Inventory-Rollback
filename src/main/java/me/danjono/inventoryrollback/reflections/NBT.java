@@ -28,7 +28,7 @@ public class NBT {
             Object comp = itemstack.getClass().getMethod("getTag").invoke(itemstack);
 
             if (comp == null) {
-                comp = packets.getCraftBukkitClass("NBTTagCompound").newInstance();
+                comp = packets.getCraftBukkitClass("NBTTagCompound").getDeclaredConstructor().newInstance();
             }
 
             comp.getClass().getMethod("setString", String.class, String.class).invoke(comp, key, data);
@@ -48,7 +48,7 @@ public class NBT {
             Object comp = itemstack.getClass().getMethod("getTag").invoke(itemstack);
 
             if (comp == null) {
-                comp = packets.getCraftBukkitClass("NBTTagCompound").newInstance();
+                comp = packets.getCraftBukkitClass("NBTTagCompound").getDeclaredConstructor().newInstance();
             }
 
             comp.getClass().getMethod("setInt", String.class, int.class).invoke(comp, key, data);
@@ -68,7 +68,7 @@ public class NBT {
             Object comp = itemstack.getClass().getMethod("getTag").invoke(itemstack);
 
             if (comp == null) {
-                comp = packets.getCraftBukkitClass("NBTTagCompound").newInstance();
+                comp = packets.getCraftBukkitClass("NBTTagCompound").getDeclaredConstructor().newInstance();
             }
 
             comp.getClass().getMethod("setLong", String.class, long.class).invoke(comp, key, data);
@@ -88,7 +88,7 @@ public class NBT {
             Object comp = itemstack.getClass().getMethod("getTag").invoke(itemstack);
 
             if (comp == null) {
-                comp = packets.getCraftBukkitClass("NBTTagCompound").newInstance();
+                comp = packets.getCraftBukkitClass("NBTTagCompound").getDeclaredConstructor().newInstance();
             }
 
             comp.getClass().getMethod("setDouble", String.class, double.class).invoke(comp, key, data);
@@ -108,7 +108,7 @@ public class NBT {
             Object comp = itemstack.getClass().getMethod("getTag").invoke(itemstack);
 
             if (comp == null) {
-                comp = packets.getCraftBukkitClass("NBTTagCompound").newInstance();
+                comp = packets.getCraftBukkitClass("NBTTagCompound").getDeclaredConstructor().newInstance();
             }
 
             comp.getClass().getMethod("setFloat", String.class, float.class).invoke(comp, key, data);

@@ -30,7 +30,7 @@ public class SoundData extends ConfigFile {
 
         //If sounds are invalid they will be disabled.
         try {
-            enderPearl = Sound.valueOf((String) getDefaultValue("sounds.enderPearl.sound", "ENTITY_ENDERMEN_TELEPORT"));
+            enderPearl = Sound.valueOf((String) getDefaultValue("sounds.enderPearl.sound", "ENTITY_ENDERMAN_TELEPORT"));
         } catch (IllegalArgumentException e) {
             if (InventoryRollback.getVersion().equals(VersionName.v1_8)) {
                 enderPearl = Sound.valueOf("ENDERMAN_TELEPORT");
@@ -44,7 +44,7 @@ public class SoundData extends ConfigFile {
         enderPearlVolume = ((Double) getDefaultValue("sounds.enderPearl.volume", 0.5)).floatValue();
 
         try {
-            enderChest = Sound.valueOf((String) getDefaultValue("sounds.enderChest.sound", "ENTITY_ENDERDRAGON_FLAP"));
+            enderChest = Sound.valueOf((String) getDefaultValue("sounds.enderChest.sound", "ENTITY_ENDER_DRAGON_FLAP"));
         } catch (IllegalArgumentException e) {
             if (InventoryRollback.getVersion().equals(VersionName.v1_8)) {
                 enderChest = Sound.valueOf("ENDERDRAGON_WINGS");

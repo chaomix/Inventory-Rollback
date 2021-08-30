@@ -24,7 +24,9 @@ public class BackupMenu {
     private final float saturation;
     private final float xp;
 
-    public BackupMenu(Player staff, UUID playerUUID, LogType logType, Long timestamp, ItemStack[] main, ItemStack[] armour, String location, boolean enderchest, Double health, int hunger, float saturation, float xp) {
+    public BackupMenu(Player staff, UUID playerUUID, LogType logType, Long timestamp,
+                        ItemStack[] main, ItemStack[] armour, String location, boolean enderchest,
+                        Double health, int hunger, float saturation, float xp) {
         this.staff = staff;
         this.playerUUID = playerUUID;
         this.logType = logType;
@@ -40,6 +42,8 @@ public class BackupMenu {
     }
 
     public Inventory showItems() {
+        //Size 54 gives 6 rows of 9 columns.
+        //Fifth row for amour, sixth row for buttons
         Inventory inv = Bukkit.createInventory(staff, 54, InventoryName.BACKUP.getName());
         Buttons buttons = new Buttons();
 
@@ -48,22 +52,20 @@ public class BackupMenu {
 
         //If the backup file is invalid it will return null, we want to catch it here
         try {
-            //Add items
-            for (int i = 0; i < mainInventory.length - 5; i++) {
+            //Add items -- Not sure why the length has 5 subtracted?
+            for (; item < mainInventory.length - 5; item++) {
                 if (mainInventory[item] != null) {
                     inv.setItem(position, mainInventory[item]);
                     position++;
-                }
-
-                item++;
+                }          
             }
         } catch (NullPointerException e) {
             staff.sendMessage(MessageData.pluginName + MessageData.errorInventory);
             return null;
         }
 
-        item = 36;
-        position = 44;
+        item = 36; //Last inventory slot+1, anything above it, should be impossible?
+        position = 44; //End of 2nd to last row
 
         //Add armour
         if (armour != null) {
@@ -72,13 +74,12 @@ public class BackupMenu {
                 position--;
             }
         } else {
-            for (int i = 36; i < mainInventory.length; i++) {
+            //Not sure if this loop will go through as max inventory is 36 (this is going from 37+)
+            for (;item < mainInventory.length; item++) {
                 if (mainInventory[item] != null) {
                     inv.setItem(position, mainInventory[item]);
                     position--;
                 }
-
-                item++;
             }
         }
 
