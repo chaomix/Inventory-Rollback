@@ -83,7 +83,6 @@ public class InventoryRollback extends JavaPlugin {
         v1_15_R1,
         V1_16_R1,
         V1_16_R2,
-        v1_17_R0,
         v1_17_R1
     }
 

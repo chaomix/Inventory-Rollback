@@ -47,7 +47,9 @@ public class SaveInventory {
 
         int maxSaves = data.getMaxSaves();
 
-        float xp = getTotalExperience(player);
+        //float xp = getTotalExperience(player);
+        float xp = player.getExp();
+        int level = player.getLevel();
         long time = System.currentTimeMillis();
         int saves = inventoryData.getInt("saves");
 
@@ -78,6 +80,7 @@ public class SaveInventory {
             inventoryData.set("data." + time + ".armour", toBase64(armour));
 
         inventoryData.set("data." + time + ".enderchest", toBase64(enderChestInventory));
+        inventoryData.set("data." + time + ".level", level);
         inventoryData.set("data." + time + ".xp", xp);
         inventoryData.set("data." + time + ".health", player.getHealth());
         inventoryData.set("data." + time + ".hunger", player.getFoodLevel());
@@ -117,30 +120,6 @@ public class SaveInventory {
         } catch (Exception e) {
             throw new IllegalStateException("Unable to save item stacks.", e);
         }
-    }
-
-    //Credits to Dev_Richard (https://www.spigotmc.org/members/dev_richard.38792/)
-    //https://gist.github.com/RichardB122/8958201b54d90afbc6f0
-    private float getTotalExperience(Player player) {
-        int level = player.getLevel();
-        float currentExp = player.getExp();
-        int experience;
-        int requiredExperience;
-
-        if (level >= 0 && level <= 15) {
-            experience = (int) Math.ceil(Math.pow(level, 2) + (6 * level));
-            requiredExperience = 2 * level + 7;
-        } else if (level > 15 && level <= 30) {
-            experience = (int) Math.ceil((2.5 * Math.pow(level, 2) - (40.5 * level) + 360));
-            requiredExperience = 5 * level - 38;
-        } else {
-            experience = (int) Math.ceil(((4.5 * Math.pow(level, 2) - (162.5 * level) + 2220)));
-            requiredExperience = 9 * level - 158;
-        }
-
-        experience += Math.ceil(currentExp * requiredExperience);
-
-        return experience;
     }
 
 }

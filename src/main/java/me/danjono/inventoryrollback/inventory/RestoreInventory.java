@@ -4,15 +4,12 @@ import me.danjono.inventoryrollback.InventoryRollback;
 import me.danjono.inventoryrollback.config.MessageData;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.io.BukkitObjectInputStream;
 import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.logging.Level;
 
 public class RestoreInventory {
@@ -130,87 +127,8 @@ public class RestoreInventory {
         return (float) playerData.getDouble("data." + timestamp + ".xp");
     }
 
-    //Credits to Dev_Richard (https://www.spigotmc.org/members/dev_richard.38792/)
-    //https://gist.github.com/RichardB122/8958201b54d90afbc6f0
-    public static void setTotalExperience(Player player, float xpFloat) {
-        int xp = (int) xpFloat;
-        int remainder;
-        int experienceNeeded;
-        int level;
-        //Levels 0 through 15
-        if (xp >= 0 && xp < 351) {
-            int a = 1;
-            int b = 6;
-            int c = -xp;
-            level = (int) (-b + Math.sqrt(Math.pow(b, 2) - (4 * a * c))) / (2 * a);
-            int xpForLevel = (int) (Math.pow(level, 2) + (6 * level));
-            remainder = xp - xpForLevel;
-            experienceNeeded = (2 * level) + 7;
-            
-            //Levels 16 through 30
-        } else if (xp >= 352 && xp < 1507) {
-            double a = 2.5;
-            double b = -40.5;
-            int c = -xp + 360;
-            double dLevel = (-b + Math.sqrt(Math.pow(b, 2) - (4 * a * c))) / (2 * a);
-            level = (int) Math.floor(dLevel);
-            int xpForLevel = (int) (2.5 * Math.pow(level, 2) - (40.5 * level) + 360);
-            remainder = xp - xpForLevel;
-            experienceNeeded = (5 * level) - 38;
-            
-            //Level 31 and greater
-        } else {
-            double a = 4.5;
-            double b = -162.5;
-            int c = -xp + 2220;
-            double dLevel = (-b + Math.sqrt(Math.pow(b, 2) - (4 * a * c))) / (2 * a);
-            level = (int) Math.floor(dLevel);
-            int xpForLevel = (int) (4.5 * Math.pow(level, 2) - (162.5 * level) + 2220);
-            remainder = xp - xpForLevel;
-            experienceNeeded = (9 * level) - 158;
-
-        }
-
-        float experience = (float) remainder / (float) experienceNeeded;
-        experience = round(experience, 2);
-
-        player.setLevel(level);
-        player.setExp(experience);
-    }
-
-    public static float getLevel(float floatXP) {
-        int xp = (int) floatXP;
-        int level;
-        //Levels 0 through 15
-        if (xp >= 0 && xp < 351) {
-            int a = 1;
-            int b = 6;
-            int c = -xp;
-            level = (int) (-b + Math.sqrt(Math.pow(b, 2) - (4 * a * c))) / (2 * a);
-
-            //Levels 16 through 30
-        } else if (xp >= 352 && xp < 1507) {
-            double a = 2.5;
-            double b = -40.5;
-            int c = -xp + 360;
-            double dLevel = (-b + Math.sqrt(Math.pow(b, 2) - (4 * a * c))) / (2 * a);
-            level = (int) Math.floor(dLevel);
-            
-            //Level 31 and greater
-        } else {
-            double a = 4.5;
-            double b = -162.5;
-            int c = -xp + 2220;
-            double dLevel = (-b + Math.sqrt(Math.pow(b, 2) - (4 * a * c))) / (2 * a);
-            level = (int) Math.floor(dLevel);
-        }
-        return level;
-    }
-
-    private static float round(float d, int decimalPlace) {
-        BigDecimal bd = BigDecimal.valueOf(d);
-        bd = bd.setScale(decimalPlace, RoundingMode.HALF_DOWN);
-        return bd.floatValue();
+    public int getLevel() {
+        return playerData.getInt("data." + timestamp + ".level");
     }
 
 }

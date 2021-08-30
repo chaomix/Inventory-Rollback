@@ -323,7 +323,7 @@ public class Buttons {
         return button;
     }
 
-    public ItemStack experiencePotion(UUID uuid, LogType logType, float xp) {
+    public ItemStack experiencePotion(UUID uuid, LogType logType, float xp, int level) {
         ItemStack button = new ItemStack(getExperienceIcon());
         MessageData messages = new MessageData();
 
@@ -331,7 +331,7 @@ public class Buttons {
         meta.setDisplayName(MessageData.restoreExperience);
 
         List<String> lore = new ArrayList<>();
-        lore.add(messages.restoreExperienceLevel((int) RestoreInventory.getLevel(xp) + ""));
+        lore.add(messages.restoreExperienceLevel(level + ""));
         meta.setLore(lore);
 
         button.setItemMeta(meta);
@@ -341,6 +341,7 @@ public class Buttons {
         nbt.setString("uuid", uuid.toString());
         nbt.setString("logType", logType.name());
         nbt.setFloat("xp", xp);
+        nbt.setInt("level", level);
         button = nbt.setItemData();
 
         return button;

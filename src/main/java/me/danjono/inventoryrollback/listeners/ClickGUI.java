@@ -141,13 +141,15 @@ public class ClickGUI extends Buttons implements Listener {
                 }
 
                 float xp = restore.getXP();
+                int level = restore.getLevel();
                 Double health = restore.getHealth();
                 int hunger = restore.getHunger();
                 float saturation = restore.getSaturation();
 
                 //If the backup file is invalid it will return null, we want to catch it here
                 try {
-                    staff.openInventory(new BackupMenu(staff, uuid, logType, timestamp, inventory, armour, location, enderchest, health, hunger, saturation, xp).showItems());
+                    staff.openInventory(new BackupMenu(staff, uuid, logType, timestamp, inventory, armour, location,
+                                                        enderchest, health, hunger, saturation, xp, level).showItems());
                 } catch (NullPointerException ignored) {
                 }
             }
@@ -297,15 +299,17 @@ public class ClickGUI extends Buttons implements Listener {
                 if (offlinePlayer.isOnline()) {
                     Player player = (Player) offlinePlayer;
                     Float xp = nbt.getFloat("xp");
+                    int level = nbt.getInt("level");
 
-                    RestoreInventory.setTotalExperience(player, xp);
+                    player.setLevel(level);
+                    player.setExp((float) xp);
 
                     if (SoundData.experienceEnabled)
                         player.playSound(player.getLocation(), SoundData.experience, SoundData.experienceVolume, 1);
 
-                    staff.sendMessage(MessageData.pluginName + messages.experienceRestored(player.getName(), (int) RestoreInventory.getLevel(xp)));
+                    staff.sendMessage(MessageData.pluginName + messages.experienceRestored(player.getName(), level));
                     if (!staff.getUniqueId().equals(player.getUniqueId()))
-                        player.sendMessage(MessageData.pluginName + messages.experienceRestoredPlayer(staff.getName(), xp.intValue()));
+                        player.sendMessage(MessageData.pluginName + messages.experienceRestoredPlayer(staff.getName(), level));
                 } else {
                     staff.sendMessage(MessageData.pluginName + messages.experienceNotOnline(offlinePlayer.getName()));
                 }

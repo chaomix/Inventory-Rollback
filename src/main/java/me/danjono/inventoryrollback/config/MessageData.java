@@ -90,7 +90,7 @@ public class MessageData extends ConfigFile {
         hungerRestored = convertColourCodes((String) getDefaultValue("messages.hungerRestored", "%NAME%'s hunger has been restored."));
         hungerRestoredPlayer = convertColourCodes((String) getDefaultValue("messages.hungerRestoredPlayer", "Your hunger has been restored by %NAME%"));
         hungerNotOnline = convertColourCodes((String) getDefaultValue("messages.hungerNotOnline", "%NAME% is not online to have their hunger set."));
-        experienceRestored = convertColourCodes((String) getDefaultValue("messages.experienceRestored", "%NAME%'s XP has been set to level %XP%"));
+        experienceRestored = convertColourCodes((String) getDefaultValue("messages.experienceRestored", "%NAME% has been set to level %XP%"));
         experienceRestoredPlayer = convertColourCodes((String) getDefaultValue("messages.experienceRestoredPlayer", "Your XP has been restored to level %XP% by %NAME%"));
         experienceNotOnline = convertColourCodes((String) getDefaultValue("messages.experienceNotOnline", "%NAME% is not online to have their XP set."));
 

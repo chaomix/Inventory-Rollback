@@ -23,10 +23,11 @@ public class BackupMenu {
     private final int hunger;
     private final float saturation;
     private final float xp;
+    private final int level;
 
     public BackupMenu(Player staff, UUID playerUUID, LogType logType, Long timestamp,
                         ItemStack[] main, ItemStack[] armour, String location, boolean enderchest,
-                        Double health, int hunger, float saturation, float xp) {
+                        Double health, int hunger, float saturation, float xp, int level) {
         this.staff = staff;
         this.playerUUID = playerUUID;
         this.logType = logType;
@@ -39,6 +40,7 @@ public class BackupMenu {
         this.hunger = hunger;
         this.saturation = saturation;
         this.xp = xp;
+        this.level = level;
     }
 
     public Inventory showItems() {
@@ -101,7 +103,7 @@ public class BackupMenu {
         inv.setItem(52, buttons.hungerButton(playerUUID, logType, hunger, saturation));
 
         //Add Experience Bottle
-        inv.setItem(53, buttons.experiencePotion(playerUUID, logType, xp));
+        inv.setItem(53, buttons.experiencePotion(playerUUID, logType, xp, level));
 
         return inv;
     }
